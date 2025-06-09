@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>All Notes (Admin)</h2>
+  <form method="get">
+    <input type="text" name="q" placeholder="Search by user or title" value="{{ query|default:'' }}">
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+    {% for note in notes %}
+      <li>
+        <strong>{{ note.title }}</strong> by {{ note.owner.username }}
+        (<a href="{% url 'admin_delete_note' note.pk %}">Delete</a>)
+      </li>
+    {% empty %}
+      <li>No notes found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

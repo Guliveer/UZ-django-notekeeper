@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>NoteKeeper</title>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+            Welcome {{ user.username }} |
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="background:none;border:none;padding:0;color:blue;cursor:pointer;">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+        {% if user.is_authenticated and user.is_superuser %}
+            <p>
+                <a href="{% url 'note_list' %}">Home</a> |
+                <a href="{% url 'admin_note_list' %}">All Notes</a>
+            </p>
+        {% endif %}
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
