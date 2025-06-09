@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'notes',
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/notes/'  # po zalogowaniu przekieruj na listę notatek
 LOGOUT_REDIRECT_URL = '/'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

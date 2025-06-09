@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Wszystkie blogi użytkowników{% endblock %}
+{% block content %}
+<h2>Wpisy użytkowników</h2>
+{% for note in published_notes %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ note.title }}</h5>
+      <p class="card-text">{{ note.content|truncatewords:30 }}</p>
+      <p class="card-text">
+        <small class="text-muted">
+          Autor: {{ note.owner.username }}
+        </small>
+      </p>
+    </div>
+  </div>
+{% empty %}
+  <p>Brak opublikowanych wpisów.</p>
+{% endfor %}
+{% endblock %}

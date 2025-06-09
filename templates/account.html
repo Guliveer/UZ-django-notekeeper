@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Moje konto{% endblock %}
+{% block content %}
+<h2>Moje konto</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Zmień nazwę użytkownika</button>
+</form>
+{% endblock %}

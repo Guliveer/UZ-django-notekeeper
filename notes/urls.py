@@ -3,7 +3,8 @@ from . import views
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('', views.note_list, name='note_list'),
+    path('', views.homepage, name='homepage'),  # <-- homepage jako strona główna
+    path('notes/', views.note_list, name='note_list'),
     path('account/logout/', LogoutView.as_view(), name='logout'),
     path('note/add/', views.note_create, name='note_create'),
     path('note/<int:pk>/edit/', views.note_update, name='note_update'),
@@ -12,4 +13,5 @@ urlpatterns = [
     path('user/<int:pk>/delete/', views.delete_user, name='delete_user'),
     path('manage/note/<int:pk>/delete/', views.admin_delete_note, name='admin_delete_note'),
     path('manage/notes/', views.admin_note_list, name='admin_note_list'),
+    path('account/', views.account, name='account'),
 ]

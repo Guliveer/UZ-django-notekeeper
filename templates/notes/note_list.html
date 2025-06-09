@@ -1,14 +1,41 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% block title %}Moje notatki{% endblock %}
 {% block content %}
-<h2>My Notes</h2>
-<a href="{% url 'note_create' %}">Add New Note</a>
-<ul>
-  {% for note in notes %}
-    <li>
-      <strong>{{ note.title }}</strong> -
-      <a href="{% url 'note_update' note.pk %}">Edit</a> |
-      <a href="{% url 'note_delete' note.pk %}">Delete</a>
-    </li>
-  {% endfor %}
-</ul>
+<h2 class="mb-4">Moje notatki</h2>
+<a href="{% url 'note_create' %}" class="btn btn-primary mb-3">Dodaj notatkę</a>
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Tytuł</th>
+            <th>Fragment treści</th>
+            <th>Data utworzenia</th>
+            <th>Status</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for note in notes %}
+        <tr>
+            <td>{{ note.title }}</td>
+            <td>{{ note.content|truncatewords:10 }}</td>
+            <td>{{ note.created_at|date:"Y-m-d H:i" }}</td>
+            <td>
+                {% if note.is_published %}
+                    <span class="badge bg-success">Opublikowana</span>
+                {% else %}
+                    <span class="badge bg-secondary">Szkic</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'note_update' note.pk %}" class="btn btn-sm btn-warning">Edytuj</a>
+                <a href="{% url 'note_delete' note.pk %}" class="btn btn-sm btn-danger">Usuń</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center">Brak notatek.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

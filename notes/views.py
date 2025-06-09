@@ -6,6 +6,10 @@ from .forms import NoteForm, SignUpForm
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import Q
+from .models import Note, Blog
+from django.contrib.auth.decorators import login_required
+from .forms import UsernameChangeForm
+
 
 def signup(request):
     if request.method == 'POST':
@@ -75,3 +79,18 @@ def delete_user(request, pk):
         user.delete()
         return redirect('note_list')
     return render(request, 'notes/user_confirm_delete.html', {'user_obj': user})
+
+def homepage(request):
+    published_notes = Note.objects.filter(is_published=True).select_related('owner').order_by('-id')
+    return render(request, 'homepage.html', {'published_notes': published_notes})
+
+@login_required
+def account(request):
+    if request.method == 'POST':
+        form = UsernameChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('account')
+    else:
+        form = UsernameChangeForm(instance=request.user)
+    return render(request, 'account.html', {'form': form})
