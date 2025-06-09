@@ -9,23 +9,52 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
         <a class="navbar-brand" href="{% url 'homepage' %}">Home</a>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-center">
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'note_list' %}">Moje notatki</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'account' %}">Konto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Wyloguj</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'note_list' %}">Moje notatki</a>
+                    </li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Zaloguj</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Rejestracja</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Zaloguj</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Rejestracja</a>
+                    </li>
                 {% endif %}
             </ul>
+            {% if user.is_authenticated %}
+    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit"
+                class="nav-link"
+                style="
+                    background: none;
+                    border: none;
+                    color: #fff;
+                    padding: 0 1rem;
+                    margin: 0;
+                    text-decoration: none;
+                    cursor: pointer;
+                    font: inherit;
+                    display: inline;
+                ">
+            Wyloguj
+        </button>
+    </form>
+{% endif %}
+
+
+
         </div>
     </div>
 </nav>
+
 <div class="container">
     {% block content %}{% endblock %}
 </div>

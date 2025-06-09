@@ -1,11 +1,9 @@
 from django.urls import path
 from . import views
-from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('', views.homepage, name='homepage'),  # <-- homepage jako strona główna
+    path('', views.homepage, name='homepage'),
     path('notes/', views.note_list, name='note_list'),
-    path('account/logout/', LogoutView.as_view(), name='logout'),
     path('note/add/', views.note_create, name='note_create'),
     path('note/<int:pk>/edit/', views.note_update, name='note_update'),
     path('note/<int:pk>/delete/', views.note_delete, name='note_delete'),
