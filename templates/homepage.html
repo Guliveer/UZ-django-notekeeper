@@ -72,6 +72,14 @@
                                     <small class="text-muted">
                                         <i class="fas fa-clock me-1"></i>{{ note.created_at|date:"d.m.Y H:i" }}
                                     </small>
+                                    {% if user.is_superuser %}
+                                    <form method="post" action="{% url 'admin_delete_note' note.id %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Czy na pewno chcesz usunąć tę notatkę?')">
+                                            <i class="fas fa-trash me-1"></i>Usuń
+                                        </button>
+                                    </form>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
