@@ -1,0 +1,1 @@
+# Ten plik jest pusty, ale jest wymagany, aby Python traktował katalog jako pakiet 

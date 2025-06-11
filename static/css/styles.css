@@ -1,0 +1,113 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f5f5f5;
+    --text-color: #333;
+    --accent-color: #ff6b6b;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: var(--primary-color) !important;
+}
+
+.note-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+    --primary-color: #64b5f6;
+    --secondary-color: #1a1a1a;
+    --text-color: #fff;
+    --accent-color: #ff8a80;
+}
+
+[data-theme="dark"] body {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .note-card {
+    background: #2d2d2d;
+    color: var(--text-color);
+}
+
+/* Animacje */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Stopka */
+.footer {
+    background-color: #343a40;
+    color: white;
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .note-card {
+        margin: 10px 0;
+    }
+} 

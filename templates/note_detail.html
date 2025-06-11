@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ note.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title">{{ note.title }}</h1>
+                    <p class="text-muted">
+                        Autor: {{ note.owner.username }} | 
+                        Utworzono: {{ note.created_at|date:"d.m.Y H:i" }}
+                        {% if note.updated_at != note.created_at %}
+                        | Zaktualizowano: {{ note.updated_at|date:"d.m.Y H:i" }}
+                        {% endif %}
+                    </p>
+                    <hr>
+                    <div class="note-content">
+                        {{ note.content|linebreaks }}
+                    </div>
+                    {% if note.owner == request.user %}
+                    <div class="mt-4">
+                        <a href="{% url 'note_edit' note.pk %}" class="btn btn-primary">
+                            <i class="fas fa-edit me-2"></i>Edytuj
+                        </a>
+                        <a href="{% url 'note_delete' note.pk %}" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Usuń
+                        </a>
+                        {% if note.is_published %}
+                        <a href="{% url 'note_unpublish' note.pk %}" class="btn btn-warning">
+                            <i class="fas fa-eye-slash me-2"></i>Ukryj
+                        </a>
+                        {% else %}
+                        <a href="{% url 'note_publish' note.pk %}" class="btn btn-success">
+                            <i class="fas fa-eye me-2"></i>Opublikuj
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

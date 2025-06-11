@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuń notatkę{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title mb-4">Usuń notatkę</h1>
+                    <p class="card-text">Czy na pewno chcesz usunąć notatkę "{{ note.title }}"?</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-2"></i>Usuń
+                            </button>
+                            <a href="{% url 'note_list' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Anuluj
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

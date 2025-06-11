@@ -1,9 +1,70 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% block title %}{% if form.instance.pk %}Edytuj notatkę{% else %}Nowa notatka{% endif %}{% endblock %}
 {% block content %}
-<h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Note</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">
+                        <i class="fas fa-{% if form.instance.pk %}edit{% else %}plus{% endif %} me-2"></i>
+                        {% if form.instance.pk %}Edytuj notatkę{% else %}Nowa notatka{% endif %}
+                    </h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.title.id_for_label }}" class="form-label">Tytuł</label>
+                            {{ form.title.errors }}
+                            <input type="text" name="{{ form.title.name }}" id="{{ form.title.id_for_label }}" 
+                                   class="form-control" value="{{ form.title.value|default:'' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.category.id_for_label }}" class="form-label">Kategoria</label>
+                            {{ form.category.errors }}
+                            {{ form.category }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.content.id_for_label }}" class="form-label">Treść</label>
+                            {{ form.content.errors }}
+                            {{ form.content }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.image.id_for_label }}" class="form-label">Zdjęcie</label>
+                            {{ form.image.errors }}
+                            <input type="file" name="{{ form.image.name }}" id="{{ form.image.id_for_label }}" 
+                                   class="form-control" accept="image/*">
+                            {% if form.instance.image %}
+                                <div class="mt-2">
+                                    <img src="{{ form.instance.image.url }}" alt="Obecne zdjęcie" class="img-thumbnail" style="max-height: 200px;">
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            {{ form.is_published.errors }}
+                            <input type="checkbox" name="{{ form.is_published.name }}" id="{{ form.is_published.id_for_label }}" 
+                                   class="form-check-input" {% if form.is_published.value %}checked{% endif %}>
+                            <label class="form-check-label" for="{{ form.is_published.id_for_label }}">
+                                Opublikuj notatkę
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'note_list' %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Powrót
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Zapisz
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
